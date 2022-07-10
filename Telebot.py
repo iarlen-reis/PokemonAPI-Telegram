@@ -11,7 +11,7 @@ class Telegram(telebot.TeleBot):
         super().__init__(self, *args, **kwargs)
 
         self.bot = telebot.TeleBot(
-            '5437930749:AAHC_uWRhVqw6-3Bk7-Et7FvFl4iofbwInc')
+            'YOUR TOKEN')
 
         self.configure()
         self.bot.infinity_polling()
