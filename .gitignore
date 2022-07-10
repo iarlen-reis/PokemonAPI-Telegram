@@ -1,0 +1,5 @@
+venv
+testando.py
+GetPokemonAbility.py
+.mypy_cache
+__pycache__
