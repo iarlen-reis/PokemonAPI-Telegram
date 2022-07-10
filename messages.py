@@ -15,12 +15,12 @@ Exemples:
 /name 25
 
 PokeAPI: https://pokeapi.co/
-Repository: https://github.com/iarlen-reis/PokemonAPI-Telegram
 """
 
 commands_message = """
 All commands:
 /name - The picture of pokemon.
+/ability - stats of pokemon.
 /github - Repository page.
 """
 

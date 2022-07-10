@@ -1,36 +1,52 @@
 import requests
-from create_image import CreateImage
+from utils import CreateImage
+from ability_pokemon import get_stats_abilitys
 
 
 class GetPokemon:
-    def __init__(self, name) -> None:
-        self.name = name
-        self.no_found = None
-
-        self.request = requests.get(
-            f'https://pokeapi.co/api/v2/pokemon/{self.name}'
-            )
-
-        self.status_200_or_400()
-
-    def status_200_or_400(self):
-        if self.request.status_code == 200:
-            self.no_found = False
-            self.response = self.request.json()
-            self.get_pokemon_name()
-            self.get_pokemon_image()
+    def status_200_or_400(self, pokemon):
+        request = requests.get(
+            f'https://pokeapi.co/api/v2/pokemon/{pokemon}'
+        )
+        if request.status_code == 200:
+            return True
         else:
-            self.no_found = True
+            return False
 
-    def get_pokemon_name(self):
-        name_pokemon = self.response['forms'][0]['name']
-        return f'{name_pokemon}!'
+    def get_pokemon_name(self, pokemon):
+        request = requests.get(
+            f'https://pokeapi.co/api/v2/pokemon/{pokemon}'
+        )
+        if request.status_code == 200:
+            self.no_found = False
+            response = request.json()
+            name_pokemon = response['forms'][0]['name']
+            
+        return name_pokemon
 
-    def get_pokemon_image(self):
+    def get_pokemon_image(self, pokemon):
+        request = requests.get(
+            f'https://pokeapi.co/api/v2/pokemon/{pokemon}'
+        )
+        if request.status_code == 200:
+            self.no_found = False
+            response = request.json()
         image_pokemon_url = \
-            self.response['sprites']['other']['home']['front_default']
+            response['sprites']['other']['home']['front_default']
 
         self.image_content = requests.get(image_pokemon_url).content
 
         file = CreateImage().create_image(self.image_content)
         return file
+
+    def get_pokemon_ability(self, pokemon):
+        request = requests.get(
+            f'https://pokeapi.co/api/v2/pokemon/{pokemon}'
+        )
+        if request.status_code == 200:
+            self.no_found = False
+            response = request.json()
+            stats = get_stats_abilitys(response)
+            return stats
+        else:
+            self.no_found = True
